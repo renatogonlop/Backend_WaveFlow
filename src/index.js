@@ -88,22 +88,36 @@ server.put("/playlists/:id", (req, res) => {
 
   let body = req.body;
 
-  play = playlists.find((p) => p.id == id);
+   play = playlists.filter((p) => p.id == id);
 
   play.nome = body.nome;
 
   for (var z = 0; z < body[0].musicas.length; z++) {
     
-    if (play.musicas[z] == null) {
-        play.musicas.push(body[0].musicas[z])
+    if (play[0].musicas[z] == null) {
+        play[0].musicas.push(body[0].musicas[z])
 
     }
-    else if (play.musicas[z].id == body[0].musicas[z].id ) {
-      play.musicas[z].nome = body[0].musicas[z].nome;
-      play.musicas[z].src = body[0].musicas[z].src;
+    else if (play[0].musicas[z].id == body[0].musicas[z].id ) {
+      play[0].musicas[z].nome = body[0].musicas[z].nome;
+      play[0].musicas[z].src = body[0].musicas[z].src;
     } 
   }
-  
+
+  console.log("PLAY" + JSON.stringify(play ))
+  for (var z = 0; z < playlists.length; z++) {
+
+    
+     if (playlists[z].id == play[0].id){
+        if (playlists[z].musicas[z] == null) {
+            playlists[z].musicas[z].push(play[0].musicas[z])
+    
+        }
+        playlists[z].musicas[z].nome = play[0].musicas[z].nome;
+        playlists[z].musicas[z].src = play[0].musicas[z].src;
+    }
+
+}
   res.json(play);
 });
 
