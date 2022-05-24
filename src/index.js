@@ -57,11 +57,11 @@ const playlists = [
 ];
 
 const users = [
- {
+  {
     id: 1,
     nome: "davi1",
     senha: "aaaa",
-  }, 
+  },
   {
     id: 2,
     nome: "davi2",
@@ -92,9 +92,7 @@ server.get("/users", (req, res) => {
 server.get("/users/login", (req, res) => {
   let nome = req.query.nome;
   let senha = req.query.senha;
-  // const { senha } = req.query.senha;
 
-  // let all = playlists.reduce((prev, next) => prev.concat(next.musicas), []);
   let results = users.filter((obj) => obj.nome === nome);
 
   if (nome == results[0].nome) {
@@ -111,22 +109,19 @@ server.get("/users/login", (req, res) => {
 
 server.put("/users/login", (req, res) => {
   let nome = req.query.nome;
-  //let senha = req.query.senha;
-
 
   let body = req.body;
 
   userFilter = users.filter((p) => p.nome == nome);
-  console.log(userFilter)
- // userFilter[0] = body;
-  console.log(body)
- 
+  console.log(userFilter);
+
+  console.log(body);
+
   for (var z = 0; z < users.length; z++) {
     if (users[z].nome == userFilter[0].nome) {
       users[z].nome = body.nome;
     }
   }
-
 
   res.json(users);
 });
@@ -163,29 +158,35 @@ server.put("/playlists/:id", (req, res) => {
 
   let body = req.body;
 
-  play = playlists.filter((p) => p.id == id);
+  play = playlists.find((p) => p.id == id);
 
+  console.log( body)
+  console.log(play)
   play.nome = body.nome;
 
-  for (var z = 0; z < body[0].musicas.length; z++) {
-    if (play[0].musicas[z] == null) {
-      play[0].musicas.push(body[0].musicas[z]);
-    } else if (play[0].musicas[z].id == body[0].musicas[z].id) {
-      play[0].musicas[z].nome = body[0].musicas[z].nome;
-      play[0].musicas[z].src = body[0].musicas[z].src;
+  for (var z = 0; z < body.musicas.length; z++) {
+    if (play.musicas[z] == null) {
+      play.musicas.push(body.musicas[z]);
+    } else if (play.musicas[z].id == body.musicas[z].id) {
+      play.musicas[z].nome = body.musicas[z].nome;
+      play.musicas[z].src = body.musicas[z].src;
     }
   }
 
-  // console.log("PLAY" + JSON.stringify(play ))
+
+
   for (var z = 0; z < playlists.length; z++) {
-    if (playlists[z].id == play[0].id) {
-      if (playlists[z].musicas[z] == null) {
-        playlists[z].musicas[z].push(play[0].musicas[z]);
+    if (playlists[z].id == play.id) {
+
+      for (var x = 0; x < playlists[z].musicas.length; x++) {
+      if (playlists[z].musicas[x] == null) {
+        playlists[z].musicas[x].push(play.musicas[z]);
       }
-      playlists[z].musicas[z].nome = play[0].musicas[z].nome;
-      playlists[z].musicas[z].src = play[0].musicas[z].src;
+      playlists[z].musicas[x].nome = play.musicas[x].nome;
+      playlists[z].musicas[x].src = play.musicas[x].src;
     }
   }
+}
   res.json(play);
 });
 
