@@ -57,11 +57,11 @@ const playlists = [
 ];
 
 const users = [
-  {
+ {
     id: 1,
     nome: "davi1",
     senha: "aaaa",
-  },
+  }, 
   {
     id: 2,
     nome: "davi2",
@@ -107,6 +107,28 @@ server.get("/users/login", (req, res) => {
       res.json(error);
     }
   }
+});
+
+server.put("/users/login", (req, res) => {
+  let nome = req.query.nome;
+  //let senha = req.query.senha;
+
+
+  let body = req.body;
+
+  userFilter = users.filter((p) => p.nome == nome);
+  console.log(userFilter)
+ // userFilter[0] = body;
+  console.log(body)
+ 
+  for (var z = 0; z < users.length; z++) {
+    if (users[z].nome == userFilter[0].nome) {
+      users[z].nome = body.nome;
+    }
+  }
+
+
+  res.json(users);
 });
 
 server.get("/playlists", (req, res) => {
