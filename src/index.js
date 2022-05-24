@@ -92,9 +92,6 @@ server.get("/users", (req, res) => {
 server.get("/users/login", (req, res) => {
   let nome = req.query.nome;
   let senha = req.query.senha;
-  // const { senha } = req.query.senha;
-
-  // let all = playlists.reduce((prev, next) => prev.concat(next.musicas), []);
   let results = users.filter((obj) => obj.nome === nome);
 
   if (nome == results[0].nome) {
@@ -111,14 +108,12 @@ server.get("/users/login", (req, res) => {
 
 server.put("/users/login", (req, res) => {
   let nome = req.query.nome;
-  //let senha = req.query.senha;
 
 
   let body = req.body;
 
   userFilter = users.filter((p) => p.nome == nome);
   console.log(userFilter)
- // userFilter[0] = body;
   console.log(body)
  
   for (var z = 0; z < users.length; z++) {
@@ -176,7 +171,6 @@ server.put("/playlists/:id", (req, res) => {
     }
   }
 
-  // console.log("PLAY" + JSON.stringify(play ))
   for (var z = 0; z < playlists.length; z++) {
     if (playlists[z].id == play[0].id) {
       if (playlists[z].musicas[z] == null) {
