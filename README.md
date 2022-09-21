@@ -1,4 +1,4 @@
-pt-br > Projeto da Universidade - Hotsite de Musica inpirado no Spotify
+pt-br > Projeto da Universidade - Hotsite de Musica inpirado no Spotify<br>
 en-us > University Project - Music Hotsite inspired by Spotify
 
 
